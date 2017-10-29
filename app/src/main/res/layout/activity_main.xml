@@ -12,42 +12,43 @@
         android:layout_weight="1">
 
     </FrameLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray_F7F8F8" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@drawable/bottom_background"
-        android:layout_height="50dp">
+        android:background="@drawable/bg_unselected"
+        android:layout_height="55dp">
+
         <LinearLayout
             android:id="@+id/ll_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="match_parent" />
-            <TextView
-                android:text="公告信息"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:id="@+id/iv_message"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/message_selector" />
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_me"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="match_parent" />
-            <TextView
-                android:text="我的"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:id="@+id/iv_me"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/me_selector" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
