@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+
 import cn.edu.pku.wangyongsheng.dorm.R;
 
 /**
