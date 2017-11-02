@@ -18,27 +18,27 @@ import cn.edu.pku.wangyongsheng.dorm.R;
  * Created by xiaoshengsheng on 2017/10/25.
  */
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends BaseFragment {
     private View view;
     private WebView wv_message;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_message, container, false);
-        }
-        initView();
-        loadData();
-        return view;
+    protected int setRootViewId() {
+        return R.layout.fragment_message;
     }
 
-
-    private void initView() {
+    @Override
+    protected void initView(View view) {
         wv_message = view.findViewById(R.id.wv_message);
     }
 
-    private void loadData() {
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         //mProgressDialog.setContentView(R.layout.progress_loading);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -81,5 +81,11 @@ public class MessageFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
 
 }

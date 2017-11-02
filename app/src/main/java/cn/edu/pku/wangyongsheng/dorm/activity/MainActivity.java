@@ -14,7 +14,7 @@ import cn.edu.pku.wangyongsheng.dorm.fragment.IndexFragment;
 import cn.edu.pku.wangyongsheng.dorm.fragment.MeFragment;
 import cn.edu.pku.wangyongsheng.dorm.fragment.MessageFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends BaseActicity {
     private FragmentManager mFragemntManager;
     private FragmentTransaction mFragmentTransaction;
     private MessageFragment mMessageFragment;
@@ -24,23 +24,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView iv_me, iv_message, iv_index;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
+    protected int setRootViewId() {
+        return R.layout.activity_main;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         iv_me = findViewById(R.id.iv_me);
         iv_message = findViewById(R.id.iv_message);
         ll_message = findViewById(R.id.ll_message);
         iv_index = findViewById(R.id.iv_index);
         ll_index = findViewById(R.id.ll_index);
         ll_me = findViewById(R.id.ll_me);
+        replaceFragment(mIndexFragment, R.id.ll_index);
+    }
+
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
         ll_message.setOnClickListener(this);
         ll_me.setOnClickListener(this);
         ll_index.setOnClickListener(this);
-        replaceFragment(mIndexFragment, R.id.ll_index);
     }
 
     private void replaceFragment(Fragment fragment, int resId) {
