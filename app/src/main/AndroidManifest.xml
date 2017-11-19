@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity"/>
+        <activity android:name=".activity.ContentActivity"/>
+    <activity android:name=".activity.SelectDormActivity"/>
     </application>
 
 </manifest>

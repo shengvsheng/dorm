@@ -1,15 +1,15 @@
 package cn.edu.pku.wangyongsheng.dorm.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 /**
- * Created by xiaoshengsheng on 2017/11/2.
+ * Created by xiaoshengsheng on 2017/11/19.
  */
 
-public abstract class BaseActicity extends Activity implements View.OnClickListener {
+public abstract class BaseFragmentActivity extends FragmentActivity implements View.OnClickListener  {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +37,4 @@ public abstract class BaseActicity extends Activity implements View.OnClickListe
     protected abstract void initData();
 
     protected abstract void initListener();
-
-
 }
