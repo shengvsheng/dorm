@@ -1,10 +1,13 @@
 package cn.edu.pku.wangyongsheng.dorm.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ public class MeFragment extends BaseFragment {
     private ScrollView sv_status;
     private boolean login_status;
     private Button btn_select;
+    private ImageView iv_setting;
     private final static int REQUEST_CODE_LOGIN = 0;
     private final static int REQUEST_CODE_DORM = 1;
 
@@ -48,6 +52,7 @@ public class MeFragment extends BaseFragment {
         ll_no_room = view.findViewById(R.id.ll_no_room);
         ll_map = view.findViewById(R.id.ll_map);
         ll_vcode=view.findViewById(R.id.ll_vcode);
+        iv_setting=view.findViewById(R.id.iv_setting);
         sv_status = view.findViewById(R.id.sv_status);
         btn_select=view.findViewById(R.id.btn_select);
         tv_name = view.findViewById(R.id.tv_name);
@@ -64,9 +69,11 @@ public class MeFragment extends BaseFragment {
         editor = sharedPreferences.edit();
         login_status = sharedPreferences.getBoolean("LOGIN_STATUS", false);
         if (login_status) {
+            iv_setting.setVisibility(View.VISIBLE);
             ll_no_status.setVisibility(View.GONE);
             sv_status.setVisibility(View.VISIBLE);
         } else {
+            iv_setting.setVisibility(View.GONE);
             ll_no_status.setVisibility(View.VISIBLE);
             sv_status.setVisibility(View.GONE);
         }
@@ -75,6 +82,8 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void initListener() {
         ll_no_status.setOnClickListener(this);
+        btn_select.setOnClickListener(this);
+        iv_setting.setOnClickListener(this);
     }
 
     @Override
@@ -92,6 +101,9 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.btn_select:
                 createIntent(getActivity(), SelectDormActivity.class).excuteActivityForResult(REQUEST_CODE_DORM);
+                break;
+            case R.id.iv_setting:
+               Toast.makeText(getActivity(),"等待开发",Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -134,6 +146,7 @@ public class MeFragment extends BaseFragment {
                     editor.commit();
                     ll_no_status.setVisibility(View.GONE);
                     sv_status.setVisibility(View.VISIBLE);
+                    iv_setting.setVisibility(View.VISIBLE);
                     loadData();
                 }
             }

@@ -11,13 +11,40 @@
         android:background="@drawable/bg_toolbar"
         android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的"
-            android:textColor="@android:color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center"
+            android:layout_weight="1">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_setting"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="left|center_vertical"
+                android:src="@drawable/ic_setting"/>
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -33,14 +60,16 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_head" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:text="你还没有登录...这就去登录？" />
     </LinearLayout>
 

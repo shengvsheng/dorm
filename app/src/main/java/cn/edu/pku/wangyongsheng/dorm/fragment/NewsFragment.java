@@ -1,5 +1,6 @@
 package cn.edu.pku.wangyongsheng.dorm.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,6 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,12 +25,15 @@ import cn.edu.pku.wangyongsheng.dorm.activity.ContentActivity;
 import cn.edu.pku.wangyongsheng.dorm.bean.Info;
 import cn.edu.pku.wangyongsheng.dorm.utils.adpter.InfoAdpter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by xiaoshengsheng on 2017/11/19.
  */
 
 public class NewsFragment extends BaseFragment {
-
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private Handler mHandle;
     private ListView lv_news;
     private List<Info> infoList;
@@ -39,10 +47,14 @@ public class NewsFragment extends BaseFragment {
         infoList =new ArrayList<>();
         lv_news=view.findViewById(R.id.lv_news);
         srl_reload=view.findViewById(R.id.srl_reload);
+
+        sharedPreferences = getActivity().getSharedPreferences("info", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     @Override
     protected void initListener() {
+
         srl_reload.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -61,12 +73,21 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        getInfo("1");
+        String news=sharedPreferences.getString("news","NULL");
+        if(!news.equals("NULL")){
+            List<Info> list=JSON.parseArray(news,Info.class);
+            infoList=list;
+            lv_news.setAdapter(new InfoAdpter(getActivity(), list));
+        }else {
+            getInfo("1");
+        }
         mHandle=new Handler(){
             public void handleMessage(Message msg){
                 switch (msg.what){
                     case 1:
-                        lv_news.setAdapter(new InfoAdpter(getActivity(), infoList));break;
+                        lv_news.setAdapter(new InfoAdpter(getActivity(), infoList));
+                        editor.putString("news",JSON.toJSONString(infoList));
+                        editor.commit();break;
                 }
             }
 

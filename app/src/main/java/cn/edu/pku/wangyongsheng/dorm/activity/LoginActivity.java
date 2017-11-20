@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -27,6 +28,8 @@ public class LoginActivity extends BaseActicity {
     private EditText et_username;
     private EditText et_pwd;
     private Button btn_login;
+    private ImageView iv_back;
+
 
     @Override
     protected int setRootViewId() {
@@ -35,11 +38,13 @@ public class LoginActivity extends BaseActicity {
 
     @Override
     protected void initView() {
+        iv_back = findViewById(R.id.iv_back);
         sharedPreferences = getSharedPreferences("status", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         et_username = findViewById(R.id.et_username);
         et_pwd = findViewById(R.id.et_pwd);
         btn_login = findViewById(R.id.btn_login);
+
     }
 
     @Override
@@ -49,7 +54,7 @@ public class LoginActivity extends BaseActicity {
 
     @Override
     protected void initListener() {
-
+        iv_back.setOnClickListener(this);
         btn_login.setOnClickListener(this);
     }
 
@@ -63,7 +68,9 @@ public class LoginActivity extends BaseActicity {
                     Toast.makeText(LoginActivity.this, "学号或密码不能为空~~", Toast.LENGTH_LONG).show();
                 }
                 break;
-
+            case R.id.iv_back:
+                onBackPressed();
+                break;
         }
     }
 
@@ -76,7 +83,7 @@ public class LoginActivity extends BaseActicity {
                 int errcode = jsonObject.getInteger("errcode");
                 switch (errcode) {
                     case 0:
-                        editor.putBoolean("LOGIN_STATUS",true);
+                        editor.putBoolean("LOGIN_STATUS", true);
                         editor.commit();
                         getIntent().putExtra("BODY", response.body());
                         getIntent().putExtra("USERNAME", et_username.getText().toString());
