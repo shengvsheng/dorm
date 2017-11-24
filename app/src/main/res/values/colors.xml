@@ -3,9 +3,11 @@
     <color name="colorPrimary">#B22222</color>
     <color name="colorPrimaryDark">#B22222</color>
     <color name="colorAccent">#B22222</color>
+    <color name="red_B22222">#B22222</color>
     <color name="colorGray_ECECEC">#ECECEC</color>
     <color name="colorGray_F7F8F8">#F7F8F8</color>
     <color name="colorGray_F2F2F2">#F2F2F2</color>
     <color name="DimGrey">#696969</color>
+    <color name="color_1C1C1C">#1C1C1C</color>
     <color name="colorGray_ebebeb">#ebebeb</color>
 </resources>
