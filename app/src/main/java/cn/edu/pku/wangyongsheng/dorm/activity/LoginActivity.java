@@ -1,5 +1,6 @@
 package cn.edu.pku.wangyongsheng.dorm.activity;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.View;
@@ -75,6 +76,12 @@ public class LoginActivity extends BaseActicity {
     }
 
     private void login(String uname, String upwd) {
+        final ProgressDialog mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(true);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setMessage("正在登录...");
+        mProgressDialog.show();
         String url = "https://api.mysspku.com/index.php/V1/MobileCourse/Login?username=" + uname + "&password=" + upwd;
         OkGo.<String>get(url).tag(this).execute(new StringCallback() {
             @Override
@@ -107,6 +114,12 @@ public class LoginActivity extends BaseActicity {
                 super.onError(response);
                 Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
 
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                mProgressDialog.cancel();
             }
         });
 

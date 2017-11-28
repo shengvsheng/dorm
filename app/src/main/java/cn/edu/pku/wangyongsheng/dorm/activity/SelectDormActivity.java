@@ -2,7 +2,9 @@ package cn.edu.pku.wangyongsheng.dorm.activity;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,16 +29,17 @@ import cn.edu.pku.wangyongsheng.dorm.R;
 public class SelectDormActivity extends BaseActicity {
     private Spinner sp_numbers;
     private Spinner sp_dorm_no;
-    private LinearLayout ll_user1;
-    private LinearLayout ll_user2;
-    private LinearLayout ll_user3;
+    private LinearLayout ll_user1,ll_user2,ll_user3;
+    private LinearLayout ll_5,ll_8,ll_9,ll_13,ll_14;
     private Button btn_submit;
     private ImageView iv_back;
+    private ImageView iv_5,iv_8,iv_9,iv_13,iv_14;
 
     private TextView tv_user_no, tv_house_5, tv_house_8, tv_house_9, tv_house_13, tv_house_14;
     private EditText et_user1_no, et_user2_no, et_user3_no;
     private EditText et_user1_code, et_user2_code, et_user3_code;
     private SharedPreferences sharedPreferences;
+
 
     @Override
     protected int setRootViewId() {
@@ -51,6 +54,16 @@ public class SelectDormActivity extends BaseActicity {
         ll_user1 = findViewById(R.id.ll_user1);
         ll_user2 = findViewById(R.id.ll_user2);
         ll_user3 = findViewById(R.id.ll_user3);
+        ll_5=findViewById(R.id.ll_5);
+        ll_8=findViewById(R.id.ll_8);
+        ll_9=findViewById(R.id.ll_9);
+        ll_13=findViewById(R.id.ll_13);
+        ll_14=findViewById(R.id.ll_14);
+        iv_5=findViewById(R.id.iv_5);
+        iv_8=findViewById(R.id.iv_8);
+        iv_9=findViewById(R.id.iv_9);
+        iv_13=findViewById(R.id.iv_13);
+        iv_14=findViewById(R.id.iv_14);
         tv_user_no = findViewById(R.id.tv_user_no);
         iv_back=findViewById(R.id.iv_back);
         et_user1_no = findViewById(R.id.et_user1_no);
@@ -71,9 +84,27 @@ public class SelectDormActivity extends BaseActicity {
     @Override
     protected void initData() {
         tv_user_no.setText(sharedPreferences.getString("USERNAME", "NULL"));
+        startAnim();
         switchGender();
     }
 
+    private void startAnim(){
+        ((AnimationDrawable)iv_5.getDrawable()).start();
+        ((AnimationDrawable)iv_8.getDrawable()).start();
+        ((AnimationDrawable)iv_9.getDrawable()).start();
+        ((AnimationDrawable)iv_13.getDrawable()).start();
+        ((AnimationDrawable)iv_14.getDrawable()).start();
+        ll_5.setVisibility(View.VISIBLE);
+        ll_8.setVisibility(View.VISIBLE);
+        ll_9.setVisibility(View.VISIBLE);
+        ll_13.setVisibility(View.VISIBLE);
+        ll_14.setVisibility(View.VISIBLE);
+        tv_house_5.setVisibility(View.GONE);
+        tv_house_8.setVisibility(View.GONE);
+        tv_house_9.setVisibility(View.GONE);
+        tv_house_13.setVisibility(View.GONE);
+        tv_house_14.setVisibility(View.GONE);
+    }
     @Override
     protected void initListener() {
 
@@ -145,6 +176,7 @@ public class SelectDormActivity extends BaseActicity {
                 JSONObject jsonObject = JSON.parseObject(response.body());
                 int errcode = jsonObject.getInteger("errcode");
                 if (errcode == 0) {
+
                     JSONObject jsonObj = JSON.parseObject(jsonObject.getString("data"));
                     tv_house_5.setText(jsonObj.getString("5"));
                     tv_house_8.setText(jsonObj.getString("8"));
@@ -157,8 +189,26 @@ public class SelectDormActivity extends BaseActicity {
             @Override
             public void onError(com.lzy.okgo.model.Response<String> response) {
                 super.onError(response);
-                Toast.makeText(SelectDormActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                tv_house_5.setText("获取失败");
+                tv_house_8.setText("获取失败");
+                tv_house_9.setText("获取失败");
+                tv_house_13.setText("获取失败");
+                tv_house_14.setText("获取失败");
+            }
 
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                ll_5.setVisibility(View.GONE);
+                ll_8.setVisibility(View.GONE);
+                ll_9.setVisibility(View.GONE);
+                ll_13.setVisibility(View.GONE);
+                ll_14.setVisibility(View.GONE);
+                tv_house_5.setVisibility(View.VISIBLE);
+                tv_house_8.setVisibility(View.VISIBLE);
+                tv_house_9.setVisibility(View.VISIBLE);
+                tv_house_13.setVisibility(View.VISIBLE);
+                tv_house_14.setVisibility(View.VISIBLE);
             }
         });
 
@@ -178,7 +228,7 @@ public class SelectDormActivity extends BaseActicity {
                 JSONObject jsonObject = JSON.parseObject(response.body());
                 int errcode = jsonObject.getInteger("errcode");
                 if (errcode == 0) {
-                    Toast.makeText(SelectDormActivity.this, "SUCCESS", Toast.LENGTH_LONG).show();
+                    makeToast("选择成功");
                 }
             }
 
@@ -194,6 +244,17 @@ public class SelectDormActivity extends BaseActicity {
                 mProgressDialog.cancel();
             }
         });
+    }
+
+    private void makeToast(String text) {
+         Toast toast = Toast.makeText(SelectDormActivity.this,
+                 text, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        LinearLayout toastView = (LinearLayout) toast.getView();
+        ImageView imageCodeProject = new ImageView(getApplicationContext());
+        imageCodeProject.setImageResource(R.drawable.ic_ok);
+        toastView.addView(imageCodeProject, 0);
+        toast.show();
     }
 
     private void submitDorm(String numbers) {

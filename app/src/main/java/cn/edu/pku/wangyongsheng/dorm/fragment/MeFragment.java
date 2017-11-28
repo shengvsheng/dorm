@@ -1,6 +1,7 @@
 package cn.edu.pku.wangyongsheng.dorm.fragment;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -68,15 +69,6 @@ public class MeFragment extends BaseFragment {
         sharedPreferences = getActivity().getSharedPreferences("status", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         login_status = sharedPreferences.getBoolean("LOGIN_STATUS", false);
-        if (login_status) {
-            iv_setting.setVisibility(View.VISIBLE);
-            ll_no_status.setVisibility(View.GONE);
-            sv_status.setVisibility(View.VISIBLE);
-        } else {
-            iv_setting.setVisibility(View.GONE);
-            ll_no_status.setVisibility(View.VISIBLE);
-            sv_status.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -89,7 +81,14 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void initData() {
         if (login_status) {
+            iv_setting.setVisibility(View.VISIBLE);
+            ll_no_status.setVisibility(View.GONE);
+            sv_status.setVisibility(View.VISIBLE);
             loadData();
+        }else {
+            iv_setting.setVisibility(View.GONE);
+            ll_no_status.setVisibility(View.VISIBLE);
+            sv_status.setVisibility(View.GONE);
         }
     }
 
@@ -103,10 +102,34 @@ public class MeFragment extends BaseFragment {
                 createIntent(getActivity(), SelectDormActivity.class).excuteActivityForResult(REQUEST_CODE_DORM);
                 break;
             case R.id.iv_setting:
-               Toast.makeText(getActivity(),"等待开发",Toast.LENGTH_SHORT).show();
+                showExitDialog();
                 break;
         }
 
+    }
+
+    private void showExitDialog() {
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(getActivity());
+        normalDialog.setMessage("确定要退出登录么?");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        editor.clear();
+                        editor.commit();
+                        initData();
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 
 
