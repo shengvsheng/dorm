@@ -39,10 +39,12 @@ public class NoticeFragment extends BaseFragment {
     private ListView lv_news;
     private List<Info> infoList;
     private SwipeRefreshLayout srl_reload;
+    //绑定布局
     @Override
     protected int setRootViewId() {
         return R.layout.fragment_notice;
     }
+    //初始化控件
     @Override
     protected void initView(View view) {
         infoList =new ArrayList<>();
@@ -52,7 +54,7 @@ public class NoticeFragment extends BaseFragment {
         sharedPreferences = getActivity().getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
-
+    //设置监听
     @Override
     protected void initListener() {
         srl_reload.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -70,7 +72,7 @@ public class NoticeFragment extends BaseFragment {
             }
         });
     }
-
+    //初始化数据
     @Override
     protected void initData() {
         String notices=sharedPreferences.getString("notices","NULL");
@@ -94,7 +96,11 @@ public class NoticeFragment extends BaseFragment {
         };
 
     }
-
+    /**
+     * Jsoup获取信息内容html，不断地通过取出所需内容。
+     * Document类保存Jsoup获取的html文本
+     * Elements类保存html的标签内容
+     */
     private void getInfo(final String page) {
         new Thread(new Runnable() {
             @Override
@@ -121,7 +127,7 @@ public class NoticeFragment extends BaseFragment {
             }
         }).start();
     }
-
+    //复写onClick()方法
     @Override
     public void onClick(View v) {
 

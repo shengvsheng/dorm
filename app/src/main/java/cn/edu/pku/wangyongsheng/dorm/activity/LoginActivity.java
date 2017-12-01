@@ -20,7 +20,9 @@ import cn.edu.pku.wangyongsheng.dorm.R;
 
 
 /**
- * Created by xiaoshengsheng on 2017/11/2.
+ *
+ * 登录activity的实现，完成登录的逻辑功能
+ * Created by xiaoshengsheng
  */
 
 public class LoginActivity extends BaseActicity {
@@ -31,12 +33,12 @@ public class LoginActivity extends BaseActicity {
     private Button btn_login;
     private ImageView iv_back;
 
-
+    //绑定布局文件
     @Override
     protected int setRootViewId() {
         return R.layout.activity_login;
     }
-
+    //初始化控件
     @Override
     protected void initView() {
         iv_back = findViewById(R.id.iv_back);
@@ -47,22 +49,23 @@ public class LoginActivity extends BaseActicity {
         btn_login = findViewById(R.id.btn_login);
 
     }
-
+    //初始化数据
     @Override
     protected void initData() {
 
     }
-
+    //设置监听
     @Override
     protected void initListener() {
         iv_back.setOnClickListener(this);
         btn_login.setOnClickListener(this);
     }
-
+    //复写onClick方法，对不同的控件点击做出事件响应
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
+                //登录判断输入为不为空，若为空，Toast信息提示,若不为空，调用登陆方法
                 if (!TextUtils.isEmpty(et_username.getText()) && !TextUtils.isEmpty(et_pwd.getText())) {
                     login(et_username.getText().toString(), et_pwd.getText().toString());
                 } else {
@@ -70,11 +73,16 @@ public class LoginActivity extends BaseActicity {
                 }
                 break;
             case R.id.iv_back:
+                //点击返回键，返回上一个activity
                 onBackPressed();
                 break;
         }
     }
-
+    /**
+     * 登录方法，使用OKGo访问网络框架，对结果做出判断
+     * 使用ProgressDialog作出登录进行中的加载页面，在访问网络结束onFinish()方法取消
+     *
+     * */
     private void login(String uname, String upwd) {
         final ProgressDialog mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

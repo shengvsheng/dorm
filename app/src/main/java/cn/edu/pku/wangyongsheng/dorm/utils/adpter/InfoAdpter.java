@@ -13,31 +13,35 @@ import cn.edu.pku.wangyongsheng.dorm.R;
 import cn.edu.pku.wangyongsheng.dorm.bean.Info;
 
 /**
- * Created by xiaoshengsheng on 2017/11/19.
+ * 新闻、通知的适配器，继承BaseAdapter，实现必须复写的方法
+ * Created by xiaoshengsheng
  */
 
 public class InfoAdpter extends BaseAdapter {
     private Context context;
     private List<Info> infoList;
+    //提供有参构造方法，供初始化，传递参数
     public InfoAdpter(Context context, List<Info> infoList){
         this.context=context;
         this.infoList = infoList;
     }
+    //得到内容的个数
     @Override
     public int getCount() {
         return infoList.size();
     }
-
+    //根据postion得到单个内容对象
     @Override
     public Object getItem(int position) {
         return infoList.get(position);
     }
-
+    //根据position得到当前内容的Id
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    //绑定适配的子布局
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= LayoutInflater.from(context).inflate(R.layout.fragment_message_list_item,parent,false);

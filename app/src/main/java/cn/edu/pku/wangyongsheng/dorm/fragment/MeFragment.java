@@ -41,12 +41,12 @@ public class MeFragment extends BaseFragment {
     private ImageView iv_setting;
     private final static int REQUEST_CODE_LOGIN = 0;
     private final static int REQUEST_CODE_DORM = 1;
-
+    //绑定布局文件
     @Override
     protected int setRootViewId() {
         return R.layout.fragment_me;
     }
-
+    //初始化控件
     @Override
     protected void initView(View view) {
         ll_no_status = view.findViewById(R.id.ll_no_status);
@@ -70,14 +70,14 @@ public class MeFragment extends BaseFragment {
         editor = sharedPreferences.edit();
         login_status = sharedPreferences.getBoolean("LOGIN_STATUS", false);
     }
-
+    //设置监听
     @Override
     protected void initListener() {
         ll_no_status.setOnClickListener(this);
         btn_select.setOnClickListener(this);
         iv_setting.setOnClickListener(this);
     }
-
+    //初始化数据
     @Override
     protected void initData() {
         if (login_status) {
@@ -91,7 +91,7 @@ public class MeFragment extends BaseFragment {
             sv_status.setVisibility(View.GONE);
         }
     }
-
+    //复写onClick()方法，对不同的点击做出事件响应
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -107,7 +107,7 @@ public class MeFragment extends BaseFragment {
         }
 
     }
-
+    //点击imageview控件弹出的dialog方法，根据选择做出是否注销
     private void showExitDialog() {
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(getActivity());
@@ -128,7 +128,6 @@ public class MeFragment extends BaseFragment {
 
                     }
                 });
-        // 显示
         normalDialog.show();
     }
 
@@ -146,7 +145,11 @@ public class MeFragment extends BaseFragment {
             }
         }
     }
-
+    /**
+     * 获取学生信息的方法，使用OKGo访问网络框架，对结果做出响应
+     * 通过sharePreference保存数据
+     *
+     * */
     private void getUserInfo(String stuid) {
         String url = "https://api.mysspku.com/index.php/V1/MobileCourse/getDetail?stuid=" + stuid;
         OkGo.<String>get(url).tag(this).execute(new StringCallback() {
@@ -181,7 +184,7 @@ public class MeFragment extends BaseFragment {
             }
         });
     }
-
+    //activity创建加载数据
     private void loadData() {
 
         tv_name.setText(sharedPreferences.getString("NAME", "NULL"));

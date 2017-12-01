@@ -1,7 +1,10 @@
 package cn.edu.pku.wangyongsheng.dorm.bean;
 
 /**
- * Created by xiaoshengsheng on 2017/11/19.
+ * 新闻、通知的JAVA Bean类
+ * 包括发布时间、链接和标题
+ * 以及提供set、get方法
+ * Created by xiaoshengsheng
  */
 
 public class Info {

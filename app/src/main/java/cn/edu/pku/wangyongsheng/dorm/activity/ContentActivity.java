@@ -14,7 +14,8 @@ import org.jsoup.select.Elements;
 import cn.edu.pku.wangyongsheng.dorm.R;
 
 /**
- * Created by xiaoshengsheng on 2017/11/19.
+ * 学院信息的内容Activity，用于呈现新闻、通知的信息的activity
+ * Created by xiaoshengsheng
  */
 
 public class ContentActivity extends BaseActicity {
@@ -36,6 +37,7 @@ public class ContentActivity extends BaseActicity {
     @Override
     protected void initData() {
         getInfo(getIntent().getStringExtra("href"));
+        //hander更新数据。
         mHandle = new Handler() {
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
@@ -46,21 +48,29 @@ public class ContentActivity extends BaseActicity {
 
         };
     }
-
+    //webview加载html数据
     private void loadWebView(String msg) {
+        //设置指出js
         wv_content.getSettings().setJavaScriptEnabled(true);
+        //设置可缩放
         wv_content.getSettings().setSupportZoom(true);
         wv_content.getSettings().setBuiltInZoomControls(true);
         wv_content.getSettings().setDisplayZoomControls(false);
+        //设置编码
         wv_content.getSettings().setDefaultTextEncodingName("UTF-8");
         wv_content.loadData("<html><body>" + msg + "</body></html>", "text/html; charset=UTF-8", null);
     }
 
     @Override
     protected void initListener() {
-            iv_close.setOnClickListener(this);
+        //设置点击事件监听
+        iv_close.setOnClickListener(this);
     }
-
+    /**
+     * Jsoup获取信息内容html，并通过handler传递数据更新webview加载数据。
+     * Document类保存Jsoup获取的html文本
+     * Elements类保存html的标签内容
+    */
     private void getInfo(final String href) {
         new Thread(new Runnable() {
             @Override
@@ -89,11 +99,12 @@ public class ContentActivity extends BaseActicity {
 
     @Override
     public void onClick(View v) {
+        //当点击关闭的ImageView控件做出处理
         if (v.getId()==R.id.iv_close){
            onBackPressed();
         }
     }
-
+    //复写onBackPressed(),使得回退结束当前的activity
     @Override
     public void onBackPressed() {
         super.onBackPressed();

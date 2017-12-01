@@ -25,12 +25,12 @@ public class MessageFragment extends BaseFragment {
     private LinearLayout ll_news;
     private LinearLayout ll_notice;
 
-
+    //绑定布局文件
     @Override
     protected int setRootViewId() {
         return R.layout.fragment_message;
     }
-
+    //初始化控件
     @Override
     protected void initView(View view) {
         vp_info = view.findViewById(R.id.vp_info);
@@ -38,13 +38,13 @@ public class MessageFragment extends BaseFragment {
         ll_notice = view.findViewById(R.id.ll_notice);
         fragmentList = new ArrayList<>();
     }
-
+    //设置监听
     @Override
     protected void initListener() {
         ll_notice.setOnClickListener(this);
         ll_news.setOnClickListener(this);
     }
-
+    //初始化数据
     @Override
     protected void initData() {
         Fragment newsFragment = new NewsFragment();
@@ -53,10 +53,11 @@ public class MessageFragment extends BaseFragment {
         fragmentList.add(newsFragment);
         FragmentManager fm = getChildFragmentManager();
         InfoFragmentPageAdapter newsFragmentPageAdapter = new InfoFragmentPageAdapter(fm, fragmentList); //new myFragmentPagerAdater记得带上两个参数
-
+        //ViewPage适配Fragment
         vp_info.setAdapter(newsFragmentPageAdapter);
         vp_info.setCurrentItem(0);
         ll_notice.setSelected(true);
+        //ViewPage设置换页监听
         vp_info.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -80,13 +81,8 @@ public class MessageFragment extends BaseFragment {
 
             }
         });
-//        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
-//        //mProgressDialog.setContentView(R.layout.progress_loading);
-//        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        mProgressDialog.setMessage("正在加载...");
-
     }
-
+    //复写onClick()方法，对不同的点击做出事件响应
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

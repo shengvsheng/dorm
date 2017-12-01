@@ -20,12 +20,12 @@ public class MainActivity extends BaseFragmentActivity {
     private MeFragment mMeFragment;
     private LinearLayout ll_message, ll_me;
     private ImageView iv_me, iv_message;
-
+    //绑定布局文件
     @Override
     protected int setRootViewId() {
         return R.layout.activity_main;
     }
-
+    //初始化控件
     @Override
     protected void initView() {
         iv_me = findViewById(R.id.iv_me);
@@ -35,19 +35,22 @@ public class MainActivity extends BaseFragmentActivity {
         replaceFragment(mMessageFragment, R.id.ll_message);
     }
 
-
+    //初始化数据
     @Override
     protected void initData() {
 
     }
-
+    //设置监听
     @Override
     protected void initListener() {
         ll_message.setOnClickListener(this);
         ll_me.setOnClickListener(this);
     }
-
-    private void replaceFragment(Fragment fragment, int resId) {
+    /**
+     * 切换Fragment方法，根据传入的参数，做出判断，
+     * 并通过FragmentManager，FragmentTransaction类替换Fragment
+    **/
+     private void replaceFragment(Fragment fragment, int resId) {
         if (fragment == null) {
 
             if (resId == R.id.ll_message) {
@@ -75,9 +78,10 @@ public class MainActivity extends BaseFragmentActivity {
         mFragmentTransaction.replace(R.id.fragment_content, fragment);
         mFragmentTransaction.commit();
     }
-
+    //复写onClick()方法
     @Override
     public void onClick(View v) {
+        //根据不同的点击，切换不同的Fragment
         switch (v.getId()) {
             case R.id.ll_message:
                 replaceFragment(mMessageFragment, R.id.ll_message);

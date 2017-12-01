@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#00000000"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/red_B22222"
+            android:layout_height="40dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+                <TextView
+                    android:text="注意事项"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="30dp"
+                        android:src="@drawable/ic_close"
+                        android:layout_height="30dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:text="1、注意事项一"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+            <TextView
+                android:text="2、注意事项二"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+            <TextView
+                android:text="3、注意事项三"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+            <TextView
+                android:text="4、注意事项四"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
