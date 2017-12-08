@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +30,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.pku.wangyongsheng.dorm.R;
 
@@ -44,7 +47,7 @@ public class SelectDormActivity extends BaseActicity {
     private Button btn_submit;
     private ImageView iv_back;
     private ImageView iv_5,iv_8,iv_9,iv_13,iv_14;
-
+    private List<String> dorms;
     private TextView tv_user_no, tv_house_5, tv_house_8, tv_house_9, tv_house_13, tv_house_14;
     private EditText et_user1_no, et_user2_no, et_user3_no;
     private EditText et_user1_code, et_user2_code, et_user3_code;
@@ -59,6 +62,7 @@ public class SelectDormActivity extends BaseActicity {
     //初始化控件
     @Override
     protected void initView() {
+        dorms=new ArrayList<>();
         sharedPreferences = getSharedPreferences("status", MODE_PRIVATE);
         sp_dorm_no = findViewById(R.id.sp_dorm_no);
         sp_numbers = findViewById(R.id.sp_numbers);
@@ -191,10 +195,19 @@ public class SelectDormActivity extends BaseActicity {
         String gender = sharedPreferences.getString("GENDER", "男");
         if (gender.equals("男")) {
             getDormsNumber("1");
+            dorms.add("5号楼");
+            dorms.add("9号楼");
+            dorms.add("13号楼");
         }
         if (gender.equals("女")) {
             getDormsNumber("2");
+            dorms.add("5号楼");
+            dorms.add("8号楼");
+            dorms.add("14号楼");
         }
+        ArrayAdapter<String> dormsAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,dorms);
+        sp_dorm_no.setAdapter(dormsAdapter);
+        dormsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
     /**
      * 得到宿舍房间剩余数方法，使用OKGo访问网络框架，对结果做出判断

@@ -193,7 +193,7 @@ public class MeFragment extends BaseFragment {
         tv_location.setText(sharedPreferences.getString("LOCATION", "NULL"));
         tv_grade.setText(sharedPreferences.getString("GRADE", "NULL"));
         tv_vcode.setText(sharedPreferences.getString("VCODE", "NULL"));
-        if (Integer.valueOf(sharedPreferences.getString("USERNAME", "NULL")) % 2 == 0) {
+        if (Integer.valueOf(sharedPreferences.getString("USERNAME", "0")) % 2 == 0) {
             ll_no_room.setVisibility(View.VISIBLE);
             ll_vcode.setVisibility(View.GONE);
             tv_status.setText("已经完成办理");
