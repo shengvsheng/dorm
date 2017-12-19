@@ -24,7 +24,7 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
-                    android:text="注意事项"
+                    android:text="温馨提示"
                     android:textColor="@android:color/white"
                     android:gravity="center"
                     android:textSize="16dp"
@@ -53,22 +53,17 @@
             android:orientation="vertical"
             android:layout_weight="1">
             <TextView
-                android:text="1、注意事项一"
+                android:text="1、如多人办理选择多人办理"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="45dp" />
             <TextView
-                android:text="2、注意事项二"
+                android:text="2、选择多人办理需填入一起同住的舍友学号和校验码"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="45dp" />
             <TextView
-                android:text="3、注意事项三"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="45dp" />
-            <TextView
-                android:text="4、注意事项四"
+                android:text="3、宿舍选择成功后，系统会自动返回主页"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="45dp" />

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -34,10 +35,22 @@ import static android.content.Context.MODE_PRIVATE;
 public class NewsFragment extends BaseFragment {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private Handler mHandle;
     private ListView lv_news;
     private List<Info> infoList;
     private SwipeRefreshLayout srl_reload;
+    private InfoAdpter newsAdapter;
+    private Handler   mHandle=new Handler(){
+        public void handleMessage(Message msg){
+            switch (msg.what){
+                case 1:
+                    newsAdapter=new InfoAdpter(getActivity(),infoList);
+                    lv_news.setAdapter(newsAdapter);
+                    editor.putString("news",JSON.toJSONString(infoList));
+                    editor.commit();break;
+            }
+        }
+
+    };
     //绑定布局
     @Override
     protected int setRootViewId() {
@@ -49,7 +62,6 @@ public class NewsFragment extends BaseFragment {
         infoList =new ArrayList<>();
         lv_news=view.findViewById(R.id.lv_news);
         srl_reload=view.findViewById(R.id.srl_reload);
-
         sharedPreferences = getActivity().getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
@@ -61,8 +73,9 @@ public class NewsFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 srl_reload.setRefreshing(true);
-                getInfo("20");
+                getInfo("1");
                 srl_reload.setRefreshing(false);
+                Toast.makeText(getActivity(), "刷新成功！", Toast.LENGTH_SHORT).show();
             }
         });
         lv_news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,22 +92,11 @@ public class NewsFragment extends BaseFragment {
         if(!news.equals("NULL")){
             List<Info> list=JSON.parseArray(news,Info.class);
             infoList=list;
-            lv_news.setAdapter(new InfoAdpter(getActivity(), list));
+            newsAdapter=new InfoAdpter(getActivity(),infoList);
+            lv_news.setAdapter(newsAdapter);
         }else {
             getInfo("1");
         }
-        mHandle=new Handler(){
-            public void handleMessage(Message msg){
-                switch (msg.what){
-                    case 1:
-                        lv_news.setAdapter(new InfoAdpter(getActivity(), infoList));
-                        editor.putString("news",JSON.toJSONString(infoList));
-                        editor.commit();break;
-                }
-            }
-
-        };
-
     }
     /**
      * Jsoup获取信息内容html，不断地通过取出所需内容。

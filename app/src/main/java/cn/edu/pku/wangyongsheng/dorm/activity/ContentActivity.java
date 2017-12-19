@@ -4,7 +4,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import org.jsoup.Jsoup;
@@ -59,6 +61,7 @@ public class ContentActivity extends BaseActicity {
         //设置编码
         wv_content.getSettings().setDefaultTextEncodingName("UTF-8");
         wv_content.loadData("<html><body>" + msg + "</body></html>", "text/html; charset=UTF-8", null);
+
     }
 
     @Override

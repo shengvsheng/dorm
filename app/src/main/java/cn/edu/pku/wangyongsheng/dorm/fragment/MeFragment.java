@@ -66,9 +66,7 @@ public class MeFragment extends BaseFragment {
         tv_house_number = view.findViewById(R.id.tv_house_number);
         tv_house_id = view.findViewById(R.id.tv_house_id);
 
-        sharedPreferences = getActivity().getSharedPreferences("status", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        login_status = sharedPreferences.getBoolean("LOGIN_STATUS", false);
+
     }
     //设置监听
     @Override
@@ -80,6 +78,9 @@ public class MeFragment extends BaseFragment {
     //初始化数据
     @Override
     protected void initData() {
+        sharedPreferences = getActivity().getSharedPreferences("status", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        login_status = sharedPreferences.getBoolean("LOGIN_STATUS", false);
         if (login_status) {
             iv_setting.setVisibility(View.VISIBLE);
             ll_no_status.setVisibility(View.GONE);
