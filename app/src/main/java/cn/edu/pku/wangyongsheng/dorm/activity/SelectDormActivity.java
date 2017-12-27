@@ -42,11 +42,11 @@ import cn.edu.pku.wangyongsheng.dorm.R;
 public class SelectDormActivity extends BaseActicity {
     private Spinner sp_numbers;
     private Spinner sp_dorm_no;
-    private LinearLayout ll_user1,ll_user2,ll_user3;
-    private LinearLayout ll_5,ll_8,ll_9,ll_13,ll_14;
+    private LinearLayout ll_user1, ll_user2, ll_user3;
+    private LinearLayout ll_5, ll_8, ll_9, ll_13, ll_14;
     private Button btn_submit;
     private ImageView iv_back;
-    private ImageView iv_5,iv_8,iv_9,iv_13,iv_14;
+    private ImageView iv_5, iv_8, iv_9, iv_13, iv_14;
     private List<String> dorms;
     private TextView tv_user_no, tv_house_5, tv_house_8, tv_house_9, tv_house_13, tv_house_14;
     private EditText et_user1_no, et_user2_no, et_user3_no;
@@ -54,33 +54,35 @@ public class SelectDormActivity extends BaseActicity {
     private SharedPreferences sharedPreferences;
     private Handler mHandler;
     int seconds = 3;
+
     //绑定布局文件
     @Override
     protected int setRootViewId() {
         return R.layout.activity_selectdorm;
     }
+
     //初始化控件
     @Override
     protected void initView() {
-        dorms=new ArrayList<>();
+        dorms = new ArrayList<>();
         sharedPreferences = getSharedPreferences("status", MODE_PRIVATE);
         sp_dorm_no = findViewById(R.id.sp_dorm_no);
         sp_numbers = findViewById(R.id.sp_numbers);
         ll_user1 = findViewById(R.id.ll_user1);
         ll_user2 = findViewById(R.id.ll_user2);
         ll_user3 = findViewById(R.id.ll_user3);
-        ll_5=findViewById(R.id.ll_5);
-        ll_8=findViewById(R.id.ll_8);
-        ll_9=findViewById(R.id.ll_9);
-        ll_13=findViewById(R.id.ll_13);
-        ll_14=findViewById(R.id.ll_14);
-        iv_5=findViewById(R.id.iv_5);
-        iv_8=findViewById(R.id.iv_8);
-        iv_9=findViewById(R.id.iv_9);
-        iv_13=findViewById(R.id.iv_13);
-        iv_14=findViewById(R.id.iv_14);
+        ll_5 = findViewById(R.id.ll_5);
+        ll_8 = findViewById(R.id.ll_8);
+        ll_9 = findViewById(R.id.ll_9);
+        ll_13 = findViewById(R.id.ll_13);
+        ll_14 = findViewById(R.id.ll_14);
+        iv_5 = findViewById(R.id.iv_5);
+        iv_8 = findViewById(R.id.iv_8);
+        iv_9 = findViewById(R.id.iv_9);
+        iv_13 = findViewById(R.id.iv_13);
+        iv_14 = findViewById(R.id.iv_14);
         tv_user_no = findViewById(R.id.tv_user_no);
-        iv_back=findViewById(R.id.iv_back);
+        iv_back = findViewById(R.id.iv_back);
         et_user1_no = findViewById(R.id.et_user1_no);
         et_user2_no = findViewById(R.id.et_user2_no);
         et_user3_no = findViewById(R.id.et_user3_no);
@@ -95,6 +97,7 @@ public class SelectDormActivity extends BaseActicity {
         tv_house_14 = findViewById(R.id.tv_house_14);
         btn_submit = findViewById(R.id.btn_submit);
     }
+
     //初始化数据
     @Override
     protected void initData() {
@@ -104,29 +107,32 @@ public class SelectDormActivity extends BaseActicity {
         makeDialog();
         addHandle();
     }
+
     //添加Handler方法，根据传入的message做出响应
     private void addHandle() {
-        mHandler=new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what){
+                switch (msg.what) {
                     case 1:
-                        btn_submit.setText("3秒回到主页，倒计时："+String.valueOf(msg.obj));
-                        if (Integer.valueOf(String.valueOf(msg.obj))==1){
+                        btn_submit.setText("3秒回到主页，倒计时：" + String.valueOf(msg.obj));
+                        if (Integer.valueOf(String.valueOf(msg.obj)) == 1) {
                             finish();
-                        }break;
+                        }
+                        break;
                 }
             }
         };
     }
+
     //添加动画的方法，在加载宿舍剩余的个数显示，加载完成就设置不可见
-    private void startAnim(){
-        ((AnimationDrawable)iv_5.getDrawable()).start();
-        ((AnimationDrawable)iv_8.getDrawable()).start();
-        ((AnimationDrawable)iv_9.getDrawable()).start();
-        ((AnimationDrawable)iv_13.getDrawable()).start();
-        ((AnimationDrawable)iv_14.getDrawable()).start();
+    private void startAnim() {
+        ((AnimationDrawable) iv_5.getDrawable()).start();
+        ((AnimationDrawable) iv_8.getDrawable()).start();
+        ((AnimationDrawable) iv_9.getDrawable()).start();
+        ((AnimationDrawable) iv_13.getDrawable()).start();
+        ((AnimationDrawable) iv_14.getDrawable()).start();
         ll_5.setVisibility(View.VISIBLE);
         ll_8.setVisibility(View.VISIBLE);
         ll_9.setVisibility(View.VISIBLE);
@@ -138,6 +144,7 @@ public class SelectDormActivity extends BaseActicity {
         tv_house_13.setVisibility(View.GONE);
         tv_house_14.setVisibility(View.GONE);
     }
+
     //设置监听
     @Override
     protected void initListener() {
@@ -178,6 +185,7 @@ public class SelectDormActivity extends BaseActicity {
         iv_back.setOnClickListener(this);
 
     }
+
     //复写onClick()方法
     @Override
     public void onClick(View v) {
@@ -190,6 +198,7 @@ public class SelectDormActivity extends BaseActicity {
                 break;
         }
     }
+
     //根据不同性别，调用不同的api，得到宿舍的剩余数量
     private void switchGender() {
         String gender = sharedPreferences.getString("GENDER", "男");
@@ -205,14 +214,15 @@ public class SelectDormActivity extends BaseActicity {
             dorms.add("8号楼");
             dorms.add("14号楼");
         }
-        ArrayAdapter<String> dormsAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,dorms);
+        ArrayAdapter<String> dormsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dorms);
         sp_dorm_no.setAdapter(dormsAdapter);
         dormsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
+
     /**
      * 得到宿舍房间剩余数方法，使用OKGo访问网络框架，对结果做出判断
      * 若返回成功，更新UI，不成功，设置加载失败
-    * */
+     */
     private void getDormsNumber(String gender) {
 
         String url = "https://api.mysspku.com/index.php/V1/MobileCourse/getRoom?gender=" + gender;
@@ -259,10 +269,11 @@ public class SelectDormActivity extends BaseActicity {
         });
 
     }
+
     /**
      * 选宿舍方法，使用OKGo访问网络框架，对结果做出判断
      * 若返回成功，提示选择成功，并倒计时3秒，返回主页，不成功，提示失败
-     * */
+     */
     private void selectDorm(int num, int buildingNo, String stuid, String stu1id, String v1code, String stu2id, String v2code, String stu3id, String v3code) {
         final ProgressDialog mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -279,6 +290,12 @@ public class SelectDormActivity extends BaseActicity {
                 if (errcode == 0) {
                     makeToast("选择成功");
                     btn_submit.setEnabled(false);
+                    et_user1_no.setEnabled(false);
+                    et_user1_code.setEnabled(false);
+                    et_user2_no.setEnabled(false);
+                    et_user2_code.setEnabled(false);
+                    et_user3_no.setEnabled(false);
+                    et_user3_code.setEnabled(false);
                     addTimer(mHandler);
 
                 }
@@ -297,21 +314,22 @@ public class SelectDormActivity extends BaseActicity {
             }
         });
     }
+
     //倒计时方法，供选择成功后，倒计时返回主页
     private void addTimer(final Handler handler) {
 
-        Thread thread=new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     try {
                         Thread.sleep(2000);
-                        Message message=new Message();
-                        message.what=1;
-                        message.obj=seconds;
+                        Message message = new Message();
+                        message.what = 1;
+                        message.obj = seconds;
                         handler.sendMessage(message);
                         seconds--;
-                        if (seconds==0){
+                        if (seconds == 0) {
                             break;
                         }
 
@@ -323,19 +341,20 @@ public class SelectDormActivity extends BaseActicity {
         });
         thread.start();
     }
+
     /**
      * 进入选宿舍界面，首先弹出的注意事项Dialog
      * 通过AlertDialog.Builder构造一个dialog
      * 自定义一个view，供dialog绑定
-     * */
-    private void makeDialog(){
+     */
+    private void makeDialog() {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(this);
         final View dialogView = LayoutInflater.from(this)
-                .inflate(R.layout.dialog_message,null);
-        ImageView iv_close=dialogView.findViewById(R.id.iv_close);
+                .inflate(R.layout.dialog_message, null);
+        ImageView iv_close = dialogView.findViewById(R.id.iv_close);
         builder.setView(dialogView);
-        final AlertDialog dialog =builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         dialog.show();
         Window dialogWindow = dialog.getWindow();
@@ -352,10 +371,11 @@ public class SelectDormActivity extends BaseActicity {
             }
         });
     }
+
     //选择宿舍成功后，提示成功的Toast方法
     private void makeToast(String text) {
-         Toast toast = Toast.makeText(SelectDormActivity.this,
-                 text,Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(SelectDormActivity.this,
+                text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastView = (LinearLayout) toast.getView();
         ImageView imageCodeProject = new ImageView(getApplicationContext());
@@ -363,6 +383,7 @@ public class SelectDormActivity extends BaseActicity {
         toastView.addView(imageCodeProject, 0);
         toast.show();
     }
+
     //根据选择几人同时选宿舍，传递不同的参数，选择宿舍方法
     private void submitDorm(String numbers) {
         if (numbers.equals("单人办理")) {
@@ -370,21 +391,34 @@ public class SelectDormActivity extends BaseActicity {
         }
         if (numbers.equals("2人办理")) {
             if (!TextUtils.isEmpty(et_user1_no.getText()) && !TextUtils.isEmpty(et_user1_code.getText())) {
-                selectDorm(2, Integer.valueOf(sp_dorm_no.getSelectedItem().toString().split("号")[0]), String.valueOf(tv_user_no.getText()), String.valueOf(et_user1_no.getText()), String.valueOf(et_user1_code.getText()), "", "", "", "");
+                if (!et_user1_no.getText().toString().equals(sharedPreferences.getString("USERNAME", "NULL"))) {
+                    selectDorm(2, Integer.valueOf(sp_dorm_no.getSelectedItem().toString().split("号")[0]), String.valueOf(tv_user_no.getText()), String.valueOf(et_user1_no.getText()), String.valueOf(et_user1_code.getText()), "", "", "", "");
+                } else {
+                    Toast.makeText(SelectDormActivity.this, "同住人学号重复~", Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(SelectDormActivity.this, "你还有一下信息没有填写~", Toast.LENGTH_LONG).show();
             }
         }
         if (numbers.equals("3人办理")) {
             if (!TextUtils.isEmpty(et_user1_no.getText()) && !TextUtils.isEmpty(et_user1_code.getText()) && !TextUtils.isEmpty(et_user2_no.getText()) && !TextUtils.isEmpty(et_user2_code.getText())) {
-                selectDorm(3, Integer.valueOf(sp_dorm_no.getSelectedItem().toString().split("号")[0]), String.valueOf(tv_user_no.getText()), String.valueOf(et_user1_no.getText()), String.valueOf(et_user1_code.getText()), String.valueOf(et_user2_no.getText()), String.valueOf(et_user2_code.getText()), "", "");
+                if (!et_user1_no.getText().toString().equals(sharedPreferences.getString("USERNAME", "NULL")) && !et_user2_no.getText().toString().equals(sharedPreferences.getString("USERNAME", "NULL")) && !et_user1_no.getText().toString().equals(et_user2_no.getText().toString())) {
+                    selectDorm(3, Integer.valueOf(sp_dorm_no.getSelectedItem().toString().split("号")[0]), String.valueOf(tv_user_no.getText()), String.valueOf(et_user1_no.getText()), String.valueOf(et_user1_code.getText()), String.valueOf(et_user2_no.getText()), String.valueOf(et_user2_code.getText()), "", "");
+                } else {
+                    Toast.makeText(SelectDormActivity.this, "同住人学号重复~", Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(SelectDormActivity.this, "你还有一下信息没有填写~", Toast.LENGTH_LONG).show();
             }
         }
         if (numbers.equals("4人办理")) {
             if (!TextUtils.isEmpty(et_user1_no.getText()) && !TextUtils.isEmpty(et_user1_code.getText()) && !TextUtils.isEmpty(et_user2_no.getText()) && !TextUtils.isEmpty(et_user2_code.getText()) && !TextUtils.isEmpty(et_user3_no.getText()) && !TextUtils.isEmpty(et_user3_code.getText())) {
-                selectDorm(4, Integer.valueOf(sp_dorm_no.getSelectedItem().toString().split("号")[0]), String.valueOf(tv_user_no.getText()), String.valueOf(et_user1_no.getText()), String.valueOf(et_user1_code.getText()), String.valueOf(et_user2_no.getText()), String.valueOf(et_user2_code.getText()), String.valueOf(et_user3_no.getText()), String.valueOf(et_user3_code.getText()));
+                if (!et_user1_no.getText().toString().equals(sharedPreferences.getString("USERNAME", "NULL")) && !et_user2_no.getText().toString().equals(sharedPreferences.getString("USERNAME", "NULL")) && !et_user3_no.getText().toString().equals(sharedPreferences.getString("USERNAME", "NULL")) && !et_user1_no.getText().toString().equals(et_user2_no.getText().toString())
+                        && !et_user1_no.getText().toString().equals(et_user3_no.getText().toString()) && !et_user2_no.getText().toString().equals(et_user3_no.getText().toString())) {
+                    selectDorm(4, Integer.valueOf(sp_dorm_no.getSelectedItem().toString().split("号")[0]), String.valueOf(tv_user_no.getText()), String.valueOf(et_user1_no.getText()), String.valueOf(et_user1_code.getText()), String.valueOf(et_user2_no.getText()), String.valueOf(et_user2_code.getText()), String.valueOf(et_user3_no.getText()), String.valueOf(et_user3_code.getText()));
+                } else {
+                    Toast.makeText(SelectDormActivity.this, "同住人学号重复~", Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(SelectDormActivity.this, "你还有一下信息没有填写~", Toast.LENGTH_LONG).show();
             }
